@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DriverAccept.View.LienzoImg">
+    <TextView
+        style="@style/TextosPrimarios"
+        android:text="@string/titleLienzo"
+        android:layout_centerHorizontal="true"
+        android:textSize="24sp"
+        android:layout_margin="24dp"/>
+    <LinearLayout android:id="@+id/contentFirma"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/ckeckAcepto"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/borderfirma"
+            android:alpha="0.7"
+            >
+            <ImageButton
+                android:id="@+id/borrar"
+                style="@style/botonesfirmas"
+                android:src="@drawable/ic_action_clear_firma"
+                android:focusableInTouchMode="true"
+                android:layout_alignParentLeft="true"
+                />
+            <ImageButton
+                android:id="@+id/guardar"
+                style="@style/botonesfirmas"
+                android:src="@drawable/ic_action_save_firma"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+        <com.example.sistemas.appmolinotransporte.DriverAccept.View.Firma
+
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="0dp"
+            android:id="@+id/firma"
+            android:background="@drawable/borderfirma"
+            android:alpha="0.7"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

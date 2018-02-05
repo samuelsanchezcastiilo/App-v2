@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="90dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginRight="2dp"
+    android:layout_marginLeft="2dp"
+    android:layout_marginTop="5dp"
+    app:cardElevation="1dp"
+    android:padding="5dp"
+    android:id="@+id/cardNoification">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
+            <TextView
+                android:id="@+id/conductor"
+                style="@style/TextosPrimarios"
+                android:text="Conductor" />
+            <TextView
+                style="@style/TextosSecondarios"
+                android:id="@+id/nameCondutor"
+                android:layout_toRightOf="@+id/conductor"
+                android:text="@string/nombreconductor"
+
+                />
+            <TextView
+                style="@style/TextosPrimarios"
+                android:text="Listo desde"
+                android:layout_toRightOf="@id/nameCondutor"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                />
+            <TextView
+                style="@style/TextosSecondarios"
+                android:id="@+id/horallegada"
+                android:layout_toRightOf="@+id/nameCondutor"
+                android:text="@string/horainicionumero"
+                android:layout_gravity="right"
+                 android:layout_centerVertical="false"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                />
+
+            <TextView
+                android:id="@+id/cedula"
+                style="@style/TextosPrimarios"
+                android:text="C.C"
+                android:layout_below="@id/nameCondutor"
+                 />
+            <TextView
+                android:layout_below="@+id/nameCondutor"
+                android:id="@+id/identification"
+                style="@style/TextosSecondarios"
+                android:layout_toRightOf="@+id/cedula"
+                android:text="@string/cedulaconductor" />
+            <TextView
+                style="@style/TextosPrimarios"
+                android:layout_below="@+id/identification"
+                android:text="Factura N° "
+                android:id="@+id/factura"
+                />
+            <TextView
+                style="@style/TextosPrimarios"
+                android:id="@+id/textEspera"
+                android:layout_toRightOf="@id/identification"
+                android:text="Tiempo De Espera"
+                android:layout_below="@+id/horallegada"
+                android:gravity="right"
+                android:layout_alignParentRight="true"
+                />
+            <TextView
+                style="@style/TextosSecondarios"
+                android:layout_below="@+id/textEspera"
+                android:layout_alignParentRight="true"
+                android:gravity="right"
+                android:text="1h 20 minutos"
+                android:id="@+id/timeEspera"/>
+            <TextView
+                style="@style/TextosSecondarios"
+                android:id="@+id/numberFactura"
+               android:layout_toRightOf="@+id/factura"
+                android:layout_below="@+id/identification"
+                android:text="09842"/>
+            <TextView
+                style="@style/TextosPrimarios"
+                android:text="@string/placa"
+                android:id="@+id/placa"
+                android:layout_below="@+id/numberFactura"
+                 />
+            <TextView
+                style="@style/TextosSecondarios"
+                android:layout_below="@+id/numberFactura"
+                android:text="@string/placaNumero"
+                android:id="@+id/numberPlaca"
+                android:layout_toRightOf="@+id/placa"
+                android:layout_marginTop="3dp"
+                />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>

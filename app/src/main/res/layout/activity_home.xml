@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.developer.transportemolino.Views.HomeActivity">
+    <include android:id="@+id/contenHome" layout="@layout/content_datos_personales"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/contentFragment"
+                android:layout_below="@+id/contenHome"
+                android:layout_marginTop="20dp">
+            </FrameLayout>
+            <com.roughike.bottombar.BottomBar
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/bottombar"
+                android:layout_alignParentBottom="true"
+                android:gravity="bottom"
+                android:layout_gravity="bottom"
+                app:bb_tabXmlResource="@xml/botton_bar"
+                app:bb_behavior="shifting|underNavbar"
+                app:bb_showShadow="true"
+                app:bb_activeTabColor="@android:color/black"
+                app:bb_inActiveTabColor="@android:color/white"
+               />
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+<tab
+            id="@+id/notification"
+            icon="@drawable/ic_notifications_none"
+            title="Notificaciones"
+            barColorWhenSelected="#8D6E63"
+            badgeBackgroundColor="#FF0000" />
+
+        <tab
+            id="@+id/webSearch"
+            icon="@drawable/ic_products_24dp"
+            title="Productos"
+            barColorWhenSelected="#9E9E9E"/>
+
+        <tab
+            id="@+id/tab_truck_images"
+            icon="@drawable/ic_action_truck"
+            title="Evidencia"
+            barColorWhenSelected="#8BC34A"
+
+            />
+
+
+        <tab
+            id="@+id/tab_verification"
+            icon="@drawable/ic_action_verificate"
+            title="Inspección"
+            barColorWhenSelected="#9E9E9E"
+            />
+        <!--<tab
+            id="@+id/tab_search"
+            icon="@drawable/ic_action_search"
+            title="Buscar"
+            barColorWhenSelected="#8D6E63"
+ />-->
+        <tab
+            id="@+id/tab_driver"
+            icon="@drawable/ic_person_driver"
+            title="Conductor"
+            inActiveColor="#ffff"
+            activeColor="#000"
+            barColorWhenSelected="#FFA726"
+            />
+</tabs>
+
+

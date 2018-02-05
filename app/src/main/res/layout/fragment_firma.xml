@@ -1,0 +1,82 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    tools:context="com.example.developer.transportemolino.DriverAcepto.View.FragmentFirm">
+
+    <RelativeLayout
+        android:id="@+id/sucesFull"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone">
+        <include layout="@layout/saveok"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/susesLoad"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titlefirm"
+        android:textColor="@color/primary_text"
+        android:textSize="24sp"
+        android:id="@+id/titleDeclaration"
+        android:layout_centerHorizontal="true"
+     />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_below="@+id/titleDeclaration"
+            android:layout_marginTop="10dp"
+            />
+
+    <TextView
+        android:id="@+id/declaration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/declaracion"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/titleDeclaration"
+        android:layout_gravity="center_horizontal"
+        />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ckeckAcepto"
+            android:layout_below="@+id/declaration"
+            android:layout_centerHorizontal="true"
+            android:text="Acepto Terminos y condiciones "
+            android:layout_marginTop="20dp"
+
+            />
+
+        <ImageView
+            android:layout_width="450dp"
+            android:layout_height="250dp"
+            android:id="@+id/imgFirmj"
+            android:layout_below="@+id/ckeckAcepto"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/btnguarda"
+            android:layout_below="@+id/imgFirmj"
+            android:layout_marginTop="20dp"
+            style="@style/saveButton"
+            android:text="Guardar Datos"/>
+
+    </RelativeLayout>
+
+
+
+
+</FrameLayout>

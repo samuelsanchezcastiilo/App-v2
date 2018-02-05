@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">TransporteMolino</string>
+    <string name="consecutivo">No. Factura: </string>
+    <string name="fechaPrincipal">Fecha: </string>
+    <string name="consecutivonumero">0021</string>
+    <string name="horainicio">Hora Inicio</string>
+    <string name="horainicionumero">09:35 am</string>
+    <string name="placa">Placa Vehiculo: </string>
+    <string name="placaNumero">AOF-09E</string>
+    <string name="nombre">Nombre Conductor:</string>
+    <string name="nombreconductor">Luis  Casadiegos</string>
+    <string name="cedula">Cedula Conductor: </string>
+    <string name="cedulaconductor">1093770648</string>
+    <string name="barrido">Barrido</string>
+    <string name="a">BARRIDO</string>
+    <string name="b">DETERGENTES</string>
+    <string name="c">RESIDUOS SÓLIDOS</string>
+    <string name="d">EXCREMENTOS</string>
+    <string name="e">OLORES</string>
+    <string name="f">PRODUCTOS QUÍMICOS</string>
+    <string name="g">COMBUSTIBLES</string>
+    <string name="h">FUMIGADO</string>
+    <string name="i">Parte Delantera</string>
+    <string name="j">PARED O PANEL IZQUIERDO \n(INTERNO Y EXTERNO)</string>
+    <string name="j1">PARED O PANEL DERECHO \n(INTERNO Y EXTERNO)</string>
+    <string name="k">TECHO INTERIOR/EXTERIOR \n(CABINA)</string>
+    <string name="l">ÁREA DE LA QUINTA RUEDA \nINSPECCIONAR EL COMPORTAMIENTO \nNATURAL/PLACA DEL PATÍN</string>
+    <string name="m">Puerta Interiores Exteriores</string>
+    <string name="n">PATA MECÁNICA</string>
+    <string name="o">RESPIRADORES</string>
+    <string name="p">PISOS</string>
+    <string name="q">VIGAS</string>
+    <string name="r">PARACHOQUES, NEUMÁTICOS Y \nLLANTAS</string>
+    <string name="s">TANQUES DE COMBUSTIBLE</string>
+    <string name="t">CAJA DE BATERIA</string>
+    <string name="u">SECCIÓN DE PASAJERO Y TECHO</string>
+    <string name="nombreveificador">Verificado por :</string>
+    <string name="title1">INSPECCIÓN CONTENEDOR REMOLQUES Y TRACTORES</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="titlefirm">TERMINOS Y CONDICIONES</string>
+    <string name="declaracion">DECLARO QUE RECIBÍ DE LA COOPERATIVA AGROPECUARIA DEL NORTE DE SANTANDER,
+    COAGRONORTE LTDA, LA MERCANCÍA CONTADA A SATISFACCIÓN EN EXCELENTE ESTADO Y CONDICIONES PARA EL TRANSPORTE, Y ENTREGADA
+    LAS REFERENCIAS SOLICITADAS, LA CUAL ME OBLIGO A ENTREGAR EN LA CIUDAD REFERIDA EN LA FACTURA. DE IGUAL MANERA,
+    HAGO CONSTAR QUE NO FUE CARGADO NINGÚN OTRO MATERIAL O PRODUCTO DIFERENTE (EXPLOSIVOS, NARCOTICOS, ARMAS NI OTRAS SUSTANCIAS ILEGALES)
+    AL DESCRITO EN ESTE DOCUMENTO O FACTURA ENTREGADA DE IGUAL MANERA, DECLARO LA AUTENTICIDAD Y VERACIDAD EN LOS DOCUMENTOS ENTREGADOS
+    A ESTA EMPRESA </string>
+    <string name="titleInocuidad">INSPECCIÓN DE CALIDAD E INOCUIDAD DEL VEHÍCULO</string>
+    <string name="descriptionInocuidad">Seleccione si  realizo la acción</string>
+    <string name="titleFormOne">Aspectos a Verificar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="titleNotificationes">PEDIDOS POR DESPACHAR</string>
+    <string name="titleLienzo">FIRME SI ESTÁ DE ACUERDO</string>
+
+
+</resources>

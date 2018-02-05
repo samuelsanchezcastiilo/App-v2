@@ -1,0 +1,169 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.developer.transportemolino.Views.Fragment.FragmentInspection">
+
+    <LinearLayout
+        android:id="@+id/layoutSaveOk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical">
+        <include layout="@layout/saveok"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutConten"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextosPrimarios"
+            android:text="@string/titleInocuidad"
+            android:layout_centerHorizontal="true"
+            android:textSize="19sp"
+            android:id="@+id/titleinocuidad"/>
+
+        <TextView
+            style="@style/TextosSecondarios"
+            android:text="@string/descriptionInocuidad"
+            android:layout_below="@+id/titleinocuidad"
+            android:id="@+id/descriptioninocuidatitle"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/dividerinspection"
+            android:background="@color/divider"
+            android:layout_below="@+id/descriptioninocuidatitle"
+            android:layout_marginTop="5dp"/>
+        <TextView
+            style="@style/TextosPrimarios"
+            android:layout_below="@+id/dividerinspection"
+            android:layout_centerHorizontal="true"
+            android:text="@string/titleFormOne"
+            android:id="@+id/titleFormOnes"
+            android:layout_marginTop="10dp"/>
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:columnCount="4"
+            android:id="@+id/suceptibles"
+            android:rowCount="3"
+            android:layout_below="@+id/titleFormOnes"
+            >
+        <CheckBox
+                style="@style/checks"
+                android:checked="true"
+                android:text="@string/a"
+                 android:id="@+id/barrido"/>
+            <CheckBox
+                style="@style/checks"
+                android:text="@string/b"
+                android:checked="true"
+                android:id="@+id/detergentes"/>
+
+            <CheckBox
+                style="@style/checks"
+                android:checked="true"
+                android:text="@string/c"
+                android:id="@+id/residuosSolidos"/>
+            <CheckBox
+                style="@style/checks"
+                android:text="@string/d"
+                android:checked="true"
+                android:id="@+id/excrementos"/>
+
+            <CheckBox
+                style="@style/checks"
+                android:checked="false"
+                android:text="@string/e"
+                android:id="@+id/Olores"/>
+            <CheckBox
+                style="@style/checks"
+                android:text="@string/f"
+                android:checked="true"
+                android:id="@+id/productosQuimicos"/>
+
+            <CheckBox
+                style="@style/checks"
+                android:checked="true"
+                android:text="@string/g"
+                android:id="@+id/combustible"/>
+            <CheckBox
+                style="@style/checks"
+                android:text="@string/h"
+                android:checked="false"
+                android:id="@+id/fumigado"/>
+ </GridLayout>
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp"
+                android:id="@+id/optionsSuceptibles">
+                <TextView
+                    style="@style/TextosSecondarios"
+                    android:text="PUNTOS SUSCEPTIBLES"
+                    android:id="@+id/pnts"
+                    />
+                <Space
+                    android:layout_width="135dp"
+                    android:layout_height="1dp" />
+                <TextView
+                    style="@style/TextosSecondarios"
+                    android:text="E"
+                    />
+                <Space
+                    android:layout_width="15dp"
+                    android:layout_height="1dp" />
+                <TextView
+                    style="@style/TextosSecondarios"
+                    android:text="M"
+                    />
+                <Space
+                    android:layout_width="1dp"
+                    android:layout_height="1dp" />
+                <TextView
+                    style="@style/TextosSecondarios"
+                    android:text="N/A"
+                    android:layout_marginLeft="17dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                >
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_below="@+id/optionsSuceptibles"
+                    android:paddingBottom="120dp">
+                    <LinearLayout
+                        android:id="@+id/rloew"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <include layout="@layout/content_suceptibles"/>
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </LinearLayout>
+</FrameLayout>

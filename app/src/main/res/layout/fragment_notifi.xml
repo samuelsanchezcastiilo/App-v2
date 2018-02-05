@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    >
+
+    <TextView
+        style="@style/TextosPrimarios"
+        android:text="@string/titleNotificationes"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/TitleNoti"
+        />
+    <TextView
+        style="@style/divider"
+        android:layout_below="@+id/TitleNoti"
+        android:layout_marginTop="10dp"/>
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:id="@+id/scroolBar"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_below="@+id/TitleNoti"
+        android:fillViewport="true"
+        android:layout_marginTop="20dp">
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleNotificationes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+    </android.support.v7.widget.RecyclerView>
+    </ScrollView>
+    <ProgressBar
+        android:id="@+id/progreLoadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_below="@+id/scroolBar"
+        android:layout_marginTop="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+</RelativeLayout>
