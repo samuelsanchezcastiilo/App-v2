@@ -16,4 +16,6 @@ public interface ServiceDatos {
 
     @GET("GetNotification.php")
     Call<List<Conductor>> GetNotification();
+
+
 }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "408397026098",
+    "firebase_url": "https://trasnporteapp.firebaseio.com",
+    "project_id": "trasnporteapp",
+    "storage_bucket": "trasnporteapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:408397026098:android:153d5c58a1f9d98f",
+        "android_client_info": {
+          "package_name": "com.example.sistemas.appmolinotransporte"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "408397026098-2jvndm87v78a183s4tl95qeqsoig9q9e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASXzByyQB-ZuAS2DD6M9fTxIV0ze75r-U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

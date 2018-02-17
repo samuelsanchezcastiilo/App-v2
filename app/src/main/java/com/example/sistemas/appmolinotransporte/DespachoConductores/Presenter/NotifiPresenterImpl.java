@@ -27,12 +27,11 @@ public class NotifiPresenterImpl implements NotifiPresenter {
 
     @Override
     public void initRecycler(List<Conductor> conductors) {
+
         fragmentView.inRecycler(conductors);
         fragmentView.hideProgress();
 
-
     }
-
     @Override
     public void errorRecycler(String error) {
         fragmentView.errorRecycler(error);

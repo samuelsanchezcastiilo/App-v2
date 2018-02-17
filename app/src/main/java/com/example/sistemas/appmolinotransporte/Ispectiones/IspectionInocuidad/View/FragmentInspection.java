@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sistemas.appmolinotransporte.ClienteServer;
-import com.example.sistemas.appmolinotransporte.HomeActivity;
+import com.example.sistemas.appmolinotransporte.Home.View.HomeActivity;
 import com.example.sistemas.appmolinotransporte.R;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class FragmentInspection extends Fragment {
 
 
     @BindViews({R.id.barrido, R.id.detergentes, R.id.residuosSolidos, R.id.excrementos, R.id.Olores,
-            R.id.productosQuimicos, R.id.combustible, R.id.fumigado})
+            R.id.productosQuimicos, R.id.combustible, R.id.fumigado,R.id.Infestacion})
     List<CheckBox> check;
     @BindViews({R.id.TipoParteDelantera, R.id.panelIzquierdo, R.id.panelDerecho, R.id.quintaRueda,
             R.id.puertaInteriores, R.id.pataMecanica, R.id.respiradores, R.id.pisos, R.id.vigas,
@@ -76,7 +76,7 @@ public class FragmentInspection extends Fragment {
     @BindView(R.id.layoutConten)
     LinearLayout layoutConten;
 
-    public String[][] inocuida = new String[8][2];
+    public String[][] inocuida = new String[9][2];
     private String datosSuceptibles[][] = new String[14][3];
     private boolean guardado = false;
     private String factura;
@@ -98,7 +98,7 @@ public class FragmentInspection extends Fragment {
         return view;
     }
     @OnClick(R.id.btnGuardar)
-    public void verDatosPrueba() {
+    public void confirmSendData() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Guardar")
                 .setMessage("guardar ispeccion & calida incuidad")

@@ -1,5 +1,6 @@
 package com.example.sistemas.appmolinotransporte.DespachoConductores.Adapter;
 
+import android.content.res.Resources;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,12 +29,13 @@ public class NotifiConductorAdapter extends RecyclerView.Adapter<NotifiConductor
 
     public NotifiConductorAdapter(int layout) {
         this.layout = layout;
-
     }
+
     public void setListConductor(List<Conductor> listConductor)
     {
         this.listConductor = listConductor;
         notifyDataSetChanged();
+        //listConductor.clear();
     }
 
     @Override
@@ -48,17 +50,22 @@ public class NotifiConductorAdapter extends RecyclerView.Adapter<NotifiConductor
         Conductor item = listConductor.get(position);
         holder.itemView.setTag(item);
         holder.nameConductor.setText(item.getName()+" "+item.getApellido());
-        holder.factura.setText(item.getNumberBill());
+        holder.consecutivo.setText(item.getConsecutivo());
         holder.cedulaConductor.setText(item.getCedula());
         holder.placaVehiculo.setText(item.getPlaca());
-        holder.horaInico.setText(item.getHourStart());
-        holder.tiemeEspera.setText(item.getHourWait());
-        /*if (item.getEstado().equalsIgnoreCase("Verificado"))
+        holder.horaInico.setText(item.getHourSatrt());
+        //String despachar = "1";
+        int estado = Integer.parseInt(item.getEstado());
+        if (estado == 1) {
+            holder.colorEstado.setBackgroundColor(Color.GREEN);
+            holder.estado.setText("Por Despachar");
+        }
+        if (estado == 4)
         {
-            holder.cardView.setBackgroundColor(Color.GREEN);
-        }else {
-            holder.cardView.setBackgroundColor(Color.RED);
-        }*/
+            holder.colorEstado
+            .setBackgroundColor(Color.RED);
+            holder.estado.setText("Despachando");
+        }
 
     }
 
@@ -105,9 +112,11 @@ public class NotifiConductorAdapter extends RecyclerView.Adapter<NotifiConductor
         TextView cedulaConductor;
         TextView placaVehiculo;
         TextView horaInico;
-        TextView factura;
-        TextView tiemeEspera;
+        TextView estado;
+        TextView colorEstado;
+        TextView consecutivo;
         CardView cardView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -115,9 +124,10 @@ public class NotifiConductorAdapter extends RecyclerView.Adapter<NotifiConductor
             nameConductor = (TextView) itemView.findViewById(R.id.nameCondutor);
             horaInico = (TextView) itemView.findViewById(R.id.horallegada);
             cedulaConductor = (TextView) itemView.findViewById(R.id.identification);
-            tiemeEspera = (TextView) itemView.findViewById(R.id.timeEspera);
             placaVehiculo = (TextView) itemView.findViewById(R.id.numberPlaca);
-            factura =(TextView)itemView.findViewById(R.id.numberFactura);
+            consecutivo =(TextView)itemView.findViewById(R.id.numberFactura);
+            estado =(TextView)itemView.findViewById(R.id.textEspera);
+            colorEstado =(TextView)itemView.findViewById(R.id.colorEstado);
             cardView = (CardView)itemView.findViewById(R.id.cardNoification);
 
         }

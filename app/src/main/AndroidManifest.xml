@@ -5,7 +5,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <uses-feature
         android:name="android.hardware.Camera2"
         android:required="false" />
@@ -17,7 +19,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.sistemas.appmolinotransporte"
@@ -27,17 +28,24 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_pacth" />
         </provider>
-        <activity android:name=".HomeActivity"
-            android:theme="@style/AppTheme.TransNav"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".DriverAccept.View.LienzoImg"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth" />
+        <activity android:name=".Home.View.HomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransNav">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DriverAccept.View.LienzoImg"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth"/>
+        <service android:name=".NotifiCloudMessing">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
     </application>
+
 
 </manifest>

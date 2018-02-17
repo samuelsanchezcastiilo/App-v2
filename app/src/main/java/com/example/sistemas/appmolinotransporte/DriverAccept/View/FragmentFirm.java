@@ -21,11 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
-import com.example.sistemas.appmolinotransporte.HomeActivity;
+import com.example.sistemas.appmolinotransporte.Home.View.HomeActivity;
 import com.example.sistemas.appmolinotransporte.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+
+import javax.xml.transform.Result;
 
 import butterknife.ButterKnife;
 import okhttp3.MediaType;
@@ -71,9 +73,7 @@ public class FragmentFirm extends Fragment {
         relativeLayout.setVisibility(View.INVISIBLE);
         relativeLayoutload.setVisibility(View.VISIBLE);
         final HomeActivity homeActivity =  new HomeActivity();
-
-        System.out.println("conductor"+ homeActivity.getFacturaFinal());
-        System.out.println("cedula"+ homeActivity.getCedulaFinal());
+        //verifyFirma(homeActivity.getFacturaFinal(),homeActivity.getCedulaFinal());
         showFirm();
         bndguardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,8 +174,6 @@ public class FragmentFirm extends Fragment {
         ServiceDatos serviceDatos = retrofit.create(ServiceDatos.class);
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploadedfile",file.getName(),requestBody);
-        System.out.println("valor "+ idfactura);
-        System.out.println("valor cedula"+  idConductor);
         RequestBody factura = RequestBody.create(MultipartBody.FORM,idfactura);
         RequestBody cedula = RequestBody.create(MultipartBody.FORM,idConductor);
         Call<ResponseBody> call = serviceDatos.postImage(body,factura,cedula);
@@ -200,6 +198,31 @@ public class FragmentFirm extends Fragment {
         });
 
 
+    }
+
+    public void verifyFirma(String consecutivo,String idConductor){
+        final ProgressDialog progressDialog;
+        //progressDialog = new ProgressDialog(getContext());
+        //progressDialog.setMessage("Gurdando la Firma");
+        //progressDialog.show();
+        OkHttpClient okHttpClient =  new OkHttpClient();
+        Retrofit.Builder reBuilder = new Retrofit.Builder()
+                .baseUrl("http://192.168.119.30/Transporte/WebServicePHP/VerificarRegistros/")
+                .client(okHttpClient);
+        Retrofit retrofit = reBuilder.build();
+        ServiceDatos serviceDatos = retrofit.create(ServiceDatos.class);
+
+        serviceDatos.VerificarFirma(consecutivo,idConductor).enqueue(new Callback<Veri>() {
+            @Override
+            public void onResponse(Call<Veri> call, Response<Veri> response) {
+                System.out.printf(response.body().getRsultado());
+            }
+
+            @Override
+            public void onFailure(Call<Veri> call, Throwable t) {
+
+            }
+        });
     }
 
 }

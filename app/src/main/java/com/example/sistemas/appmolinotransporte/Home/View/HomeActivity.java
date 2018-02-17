@@ -1,77 +1,89 @@
-package com.example.sistemas.appmolinotransporte;
+package com.example.sistemas.appmolinotransporte.Home.View;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.sistemas.appmolinotransporte.DespachoConductores.Interface.UpdateDataDespachado;
 import com.example.sistemas.appmolinotransporte.DespachoConductores.View.NotifiFragment;
 import com.example.sistemas.appmolinotransporte.DriverAccept.View.FragmentFirm;
+import com.example.sistemas.appmolinotransporte.Home.Interface.ApiServer;
+import com.example.sistemas.appmolinotransporte.Home.Model.ConductorModel;
 import com.example.sistemas.appmolinotransporte.Ispectiones.Images.View.FragmentInspectionTwo;
 import com.example.sistemas.appmolinotransporte.Ispectiones.IspectionInocuidad.View.FragmentInspection;
 import com.example.sistemas.appmolinotransporte.Ispectiones.ServiceData;
+import com.example.sistemas.appmolinotransporte.R;
+import com.example.sistemas.appmolinotransporte.Productos.View.WebProductFragment;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
+
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-;
+public class HomeActivity extends AppCompatActivity {
 
 
-public class HomeActivity extends AppCompatActivity{
-
-    //FrameLayout pager;
+    BottomBar bottomBar;
 
 
+    FragmentInspectionTwo fragmentInspectionTwo;
+    FragmentInspection fragmentInspection;
+    NotifiFragment notifiFragment;
+    FragmentTransaction ft;
+    WebProductFragment webProductFragment;
+    FragmentFirm fragmentFirm;
 
-BottomBar bottomBar;
-
-
-FragmentInspectionTwo fragmentInspectionTwo;
-FragmentInspection fragmentInspection;
-NotifiFragment notifiFragment;
-FragmentTransaction ft;
-WebProductFragment webProductFragment;
-FragmentFirm fragmentFirm;
-
-private static  int newnoitifi;
-private BottomBarTab notification;
+    private static  int newnoitifi;
+    private BottomBarTab notification;
 //private boolean abierta;
 
-private static  String ID_FACTURA;
-private static  String ID_CEDULA;
+    private static  String ID_FACTURA;
+    private static  String ID_CEDULA;
 
 
-@BindView(R.id.DateInspection)
-TextView dateInpection;
-@BindView(R.id.hourStart)
-TextView hourStart;
-@BindView(R.id.consecutiveNumber)
-TextView consecutiveNumber;
-@BindView(R.id.nameDriver)
-TextView nameDriver;
-@BindView(R.id.dniDriver)
-TextView dniDriver;
-@BindView(R.id.numberPlaca)
-        TextView numberPlaca;
-/**con esta variable  facturaVerificate se verifica
- *que  si el bundle viene vacion consulte con la factura
- * que esta almacenada en cache*/
-private  String facturaVerificate;
+    @BindView(R.id.DateInspection)
+    TextView dateInpection;
+    @BindView(R.id.hourStart)
+    TextView hourStart;
+    @BindView(R.id.consecutiveNumber)
+    TextView consecutiveNumber;
+    @BindView(R.id.nameDriver)
+    TextView nameDriver;
+    @BindView(R.id.dniDriver)
+    TextView dniDriver;
+    @BindView(R.id.numberPlaca)
+    TextView numberPlaca;
+    @BindView(R.id.buttonPlaca)
+    RelativeLayout placabuton;
+    /**con esta variable  facturaVerificate se verifica
+     *que  si el bundle viene vacion consulte con la factura
+     * que esta almacenada en cache*/
+    private  String facturaVerificate;
+    final Context context = this;
 
 //CondutorViewFragmnet condutorViewFragmnet;
 
@@ -92,15 +104,38 @@ private  String facturaVerificate;
         notifiFragment = new NotifiFragment();
         bottomBar.setDefaultTab(R.id.tab_truck_images);
         prueba(newnoitifi);
-        //token();
-        System.out.println("valor de cache"+ facturaCache());
+        token();
+        placabuton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                alertDialog.setTitle("Finalizar")
+                        .setMessage("Terminar este Cargue")
+                        .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if(getFacturaFinal() != null)updateCargueFinish(getFacturaFinal());
+                                else Toast.makeText(getApplicationContext(),"Inicie un Cargue",Toast.LENGTH_LONG).show();
+
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+                alertDialog.show();
+            }
+
+
+        });
 
         Bundle parametro = this.getIntent().getExtras();
         if(parametro != null){
             facturaVerificate = parametro.getString("factura");
             //getDataFactura(facturaCache());
         }
-
         if (facturaVerificate == null)
         {
             getDataFactura(facturaCache());
@@ -108,9 +143,7 @@ private  String facturaVerificate;
             getDataFactura(facturaVerificate);
         }
 
-
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener()
-        {
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(int tabId) {
                 if (tabId == R.id.tab_driver) {
@@ -158,30 +191,31 @@ private  String facturaVerificate;
                     ft = getSupportFragmentManager().beginTransaction();
                     if (notifiFragment.isAdded())
                     {
-                     ft.show(notifiFragment);
-                     notifiFragment.loadData();
+                        ft.show(notifiFragment);
+                        notifiFragment.loadData();
                     }
                     else
                     {
                         ft.add(R.id.contentFragment, notifiFragment);
                     }
-                        hideFragment(ft,fragmentFirm);
-                        hideFragment(ft,fragmentInspectionTwo);
-                        hideFragment(ft,fragmentInspection);
-                        hideFragment(ft,webProductFragment);
-                        ft.commit();
+                    hideFragment(ft,fragmentFirm);
+                    hideFragment(ft,fragmentInspectionTwo);
+                    hideFragment(ft,fragmentInspection);
+                    hideFragment(ft,webProductFragment);
+                    ft.commit();
                 }
                 if (tabId == R.id.webSearch) {
                     ft = getSupportFragmentManager().beginTransaction();
                     if (webProductFragment.isAdded())
                     {
                         ft.show(webProductFragment);
+                        webProductFragment.refreshLayout();
+                        webProductFragment.getProductos(getFacturaFinal());
                         //notifiFragment.loadData();
-                    }
-                    else
-                    {
+                    }else {
                         ft.add(R.id.contentFragment, webProductFragment);
                     }
+
                     hideFragment(ft,fragmentFirm);
                     hideFragment(ft,fragmentInspectionTwo);
                     hideFragment(ft,fragmentInspection);
@@ -191,6 +225,8 @@ private  String facturaVerificate;
             }
         });
     }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -213,66 +249,62 @@ private  String facturaVerificate;
         System.out.println("------+++al inicio del metodo---++++");
         BottomBarTab tab = bottomBar.getTabWithId(R.id.notification);
 
-            if (tab != null)
-            {
-                tab.setBadgeCount(count);
-            }
+        if (tab != null)
+        {
+            tab.setBadgeCount(count);
+        }
         if (tab == null)
         {
             tab = bottomBar.getTabWithId(R.id.notification);
             tab.setBadgeCount(count);
         }
     }
-
-
-
-        private void hideFragment(FragmentTransaction ft, Fragment f) {
-      if (f.isAdded()) {
+    private void hideFragment(FragmentTransaction ft, Fragment f) {
+        if (f.isAdded()) {
             ft.hide(f);
         }
     }
 
-        public void token()
-        {
-            String token = FirebaseInstanceId.getInstance().getToken();
-            System.out.println(token);
-        }
-        public  void SaveStatusFactura(String factura)
-        {
-            SharedPreferences sharedPreferences = getSharedPreferences("prefrencias", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("factura",factura);
-            editor.commit();
-        }
-        public String facturaCache()
-        {
-            SharedPreferences sharedPreferences =  getSharedPreferences("prefrencias",Context.MODE_PRIVATE);
-            String facturaCache = sharedPreferences.getString("factura","1212");
-            return facturaCache;
+    public void token()
+    {
+        String token = FirebaseInstanceId.getInstance().getToken();
+        System.out.println(token);
+    }
+    public  void SaveStatusFactura(String factura)
+    {
+        SharedPreferences sharedPreferences = getSharedPreferences("prefrencias", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("factura",factura);
+        editor.commit();
+    }
+    public String facturaCache()
+    {
+        SharedPreferences sharedPreferences =  getSharedPreferences("prefrencias",Context.MODE_PRIVATE);
+        String facturaCache = sharedPreferences.getString("factura","1212");
+        return facturaCache;
 
-        }
+    }
 
 
 
-   public  void setDataDriver(ConductorModel conductorModel)
-   {
-       dateInpection.setText(conductorModel.getHourStart());
-       hourStart.setText(conductorModel.getHourStart());
-       consecutiveNumber.setText(conductorModel.getNumberBill());
-       nameDriver.setText(conductorModel.getName());
-       dniDriver.setText(conductorModel.getCedula());
-       numberPlaca.setText(conductorModel.getPlaca());
-       SaveStatusFactura(conductorModel.getNumberBill());
+    public  void setDataDriver(ConductorModel conductorModel)
+    {
+        dateInpection.setText(conductorModel.getFecha());
+        hourStart.setText(conductorModel.getHourStart());
+        consecutiveNumber.setText(conductorModel.getConsecutivo());
+        nameDriver.setText(conductorModel.getName());
+        dniDriver.setText(conductorModel.getCedula());
+        numberPlaca.setText(conductorModel.getPlaca());
+        SaveStatusFactura(conductorModel.getConsecutivo());
 
-   }
+    }
     public void  SetFacturaFinal(String factura)
     {
         ID_FACTURA =factura;
     }
-
     public void setCedulaFinal(String cedula)
     {
-         ID_CEDULA = cedula;
+        ID_CEDULA = cedula;
     }
     public  String  getFacturaFinal()
     {
@@ -300,7 +332,7 @@ private  String facturaVerificate;
                 if (response.isSuccessful())
                 {
                     setCedulaFinal(response.body().get(0).getCedula());
-                    SetFacturaFinal(response.body().get(0).getNumberBill());
+                    SetFacturaFinal(response.body().get(0).getConsecutivo());
                     setDataDriver(response.body().get(0));
                 }
                 //Toast.makeText(getContext(),"valor"+response.body().getCedula(),Toast.LENGTH_LONG).show();
@@ -308,13 +340,54 @@ private  String facturaVerificate;
 
             @Override
             public void onFailure(Call<List<ConductorModel>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"error de conexion",Toast.LENGTH_LONG).show();
 
             }
         });
 
     }
+    public void updateCargueFinish(final String consecutivo)
+    {
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Guardando Cargue");
+        progressDialog.show();
+
+
+        OkHttpClient okHttpClient =  new OkHttpClient();
+        Retrofit.Builder reBuilder = new Retrofit.Builder()
+                .baseUrl("http://192.168.119.30/Transporte/WebServicePHP/Cargues/")
+                .client(okHttpClient);
+        Retrofit retrofit = reBuilder.build();
+        ApiServer apiServer = retrofit.create(ApiServer.class);
+        apiServer.updateCargueDespachando(consecutivo).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    progressDialog.dismiss();
+                    Intent intent =  new Intent(getApplicationContext(),HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+       progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Error revise su conexión intentelo de nuevo",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+    }
 
 }
+
+
+
+
+
 //ConductorModel conductorModel =  new ConductorModel(response.body().get(0).getCedula(),response.body().get(0).getName()
 //,response.body().get(0).getApellido().toString(),response.body().get(0).getPlaca().toString(),response.body().get(0).getEstado()
 //     ,response.body().get(0).getHourStart()

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.developer.transportemolino.Views.Fragment.FragmentInspection">
+    >
 
     <LinearLayout
         android:id="@+id/layoutSaveOk"
@@ -54,12 +54,12 @@
             android:id="@+id/titleFormOnes"
             android:layout_marginTop="10dp"/>
         <GridLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:columnCount="4"
+            android:columnCount="3"
             android:id="@+id/suceptibles"
-            android:rowCount="3"
+            android:rowCount="4"
             android:layout_below="@+id/titleFormOnes"
             >
         <CheckBox
@@ -67,6 +67,21 @@
                 android:checked="true"
                 android:text="@string/a"
                  android:id="@+id/barrido"/>
+
+            <CheckBox
+                style="@style/checks"
+                android:text="@string/h"
+                android:checked="false"
+                android:id="@+id/fumigado"/>
+            <CheckBox
+                style="@style/checks"
+                android:checked="false"
+                android:text="@string/e"
+                android:id="@+id/Olores"/>
+            <CheckBox style="@style/checks"
+                android:checked="false"
+                android:text="@string/e2"
+                android:id="@+id/Infestacion"/>
             <CheckBox
                 style="@style/checks"
                 android:text="@string/b"
@@ -83,28 +98,21 @@
                 android:text="@string/d"
                 android:checked="true"
                 android:id="@+id/excrementos"/>
-
             <CheckBox
                 style="@style/checks"
-                android:checked="false"
-                android:text="@string/e"
-                android:id="@+id/Olores"/>
+                android:checked="true"
+                android:text="@string/g"
+                android:id="@+id/combustible"/>
+
+
             <CheckBox
                 style="@style/checks"
                 android:text="@string/f"
                 android:checked="true"
                 android:id="@+id/productosQuimicos"/>
 
-            <CheckBox
-                style="@style/checks"
-                android:checked="true"
-                android:text="@string/g"
-                android:id="@+id/combustible"/>
-            <CheckBox
-                style="@style/checks"
-                android:text="@string/h"
-                android:checked="false"
-                android:id="@+id/fumigado"/>
+
+
  </GridLayout>
     </RelativeLayout>
         <RelativeLayout

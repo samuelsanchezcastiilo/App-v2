@@ -10,6 +10,7 @@ import android.support.v4.app.NotificationCompat;
 
 
 import com.example.sistemas.appmolinotransporte.DespachoConductores.Model.Conductor;
+import com.example.sistemas.appmolinotransporte.Home.View.HomeActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -19,7 +20,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 public class NotifiCloudMessing extends FirebaseMessagingService{
 
-      public  static  HomeActivity homeActivity;
+      public  static HomeActivity homeActivity;
       int tab = R.id.notification;
     private static  int newnoitifi;
     public NotifiCloudMessing() {
@@ -31,10 +32,6 @@ public class NotifiCloudMessing extends FirebaseMessagingService{
         super.onMessageReceived(remoteMessage);
         Conductor conductor =  new Conductor();
         showNotification(conductor);
-        homeActivity.sihay();
-        homeActivity.prueba(++newnoitifi);
-
-        //parametros que voy a recibir de la notificacion
     }
     public void showNotification(Conductor conductor)
     {
@@ -44,15 +41,15 @@ public class NotifiCloudMessing extends FirebaseMessagingService{
                 PendingIntent.FLAG_UPDATE_CURRENT);
         Uri defaultSoundUri  = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.addimg)
+                .setSmallIcon(R.drawable.circlenotification)
                 .setContentTitle(conductor.getEstado())
                 .setContentText(conductor.getApellido())
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setVibrate(new long[]{0,300,200,300})
                 .setContentIntent(pendingIntent);
-        NotificationManager notificationManager =
-         (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(0,noBuilder.build());
+                NotificationManager notificationManager =
+                (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(0,noBuilder.build());
     }
 }

@@ -2,10 +2,13 @@ package com.example.sistemas.appmolinotransporte.DespachoConductores.View;
 
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,20 +16,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
 import com.example.sistemas.appmolinotransporte.DespachoConductores.Adapter.NotifiConductorAdapter;
 import com.example.sistemas.appmolinotransporte.DespachoConductores.Interface.NotifiFragmentView;
 import com.example.sistemas.appmolinotransporte.DespachoConductores.Interface.NotifiPresenter;
 import com.example.sistemas.appmolinotransporte.DespachoConductores.Interface.OnRecyclerViewItemClickListener;
+import com.example.sistemas.appmolinotransporte.DespachoConductores.Interface.UpdateDataDespachado;
 import com.example.sistemas.appmolinotransporte.DespachoConductores.Model.Conductor;
 import com.example.sistemas.appmolinotransporte.DespachoConductores.Presenter.NotifiPresenterImpl;
-import com.example.sistemas.appmolinotransporte.HomeActivity;
+import com.example.sistemas.appmolinotransporte.Home.View.HomeActivity;
 import com.example.sistemas.appmolinotransporte.R;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 /**
@@ -62,20 +70,18 @@ private HomeActivity homeActivity;
         LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+      
 
         notifiConductorAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<Conductor>() {
             @Override
             public void onItemClick(View view, Conductor conductor) {
-                final String factura = conductor.getNumberBill();
+                final String factura = conductor.getConsecutivo();
                 final AlertDialog.Builder builder =  new AlertDialog.Builder(getContext());
-                builder.setMessage("Iniciar nuevo cargue con factura: "+factura)
+                builder.setMessage("Iniciar nuevo cargue de consecutivo: "+factura)
                         .setPositiveButton("Continuar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent =  new Intent(getContext(),HomeActivity.class);
-                        intent.putExtra("factura",factura);
-                        getActivity().finish();
-                        startActivity(intent);
+                        updateStatusCargue(factura);
                     }
                 }).setNegativeButton("cancelar", new DialogInterface.OnClickListener() {
                     @Override
@@ -85,8 +91,6 @@ private HomeActivity homeActivity;
                 });
                  builder.create();
                  builder.show();
-
-
             }
         });
 
@@ -97,13 +101,12 @@ private HomeActivity homeActivity;
     public void inRecycler(List<Conductor> conductor) {
      notifiConductorAdapter.setListConductor(conductor);
 
+
     }
-
-
 
     @Override
     public void errorRecycler(String error) {
-        Toast.makeText(getActivity(), "error en la " +error,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),  error,Toast.LENGTH_LONG).show();
 
     }
 
@@ -121,7 +124,41 @@ private HomeActivity homeActivity;
     {
         notifiPresenter.loadListConductor();
     }
+    public void updateStatusCargue(final String consecutivo)
+    {
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Espere un momento");
+        progressDialog.show();
+        OkHttpClient okHttpClient =  new OkHttpClient();
+        Retrofit.Builder reBuilder = new Retrofit.Builder()
+                .baseUrl("http://192.168.119.30/Transporte/WebServicePHP/Cargues/")
+                .client(okHttpClient);
+        Retrofit retrofit = reBuilder.build();
+        UpdateDataDespachado updateDataDespachado = retrofit.create(UpdateDataDespachado.class);
 
+        updateDataDespachado.updateCargueDespachado(consecutivo).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()){
+                    progressDialog.dismiss();
+                    Intent intent =  new Intent(getContext(),HomeActivity.class);
+                    intent.putExtra("factura",consecutivo);
+                    getActivity().finish();
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getContext(),"Ocurrio un error revise su conexión",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
 
 
 

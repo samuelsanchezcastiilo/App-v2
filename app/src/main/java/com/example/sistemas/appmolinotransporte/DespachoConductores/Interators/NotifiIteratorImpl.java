@@ -28,13 +28,12 @@ public class NotifiIteratorImpl implements NotifiIterator {
     private NotifiPresenter presesenter;
 
 
-    public NotifiIteratorImpl(NotifiPresenter presesenter) {
+    public NotifiIteratorImpl(NotifiPresenter presesenter){
         this.presesenter = presesenter;
     }
 
     @Override
     public void initRecycler() {
-        System.out.println("empesando el metodo");
         final  String url = "http://192.168.119.30/Transporte/WebServicePHP/Notification/";
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -45,16 +44,23 @@ public class NotifiIteratorImpl implements NotifiIterator {
         response.enqueue(new Callback<List<Conductor>>() {
             @Override
             public void onResponse(Call<List<Conductor>> call, Response<List<Conductor>> response) {
-                if(response.isSuccessful())
-                {
-                    presesenter.initRecycler(response.body());
+
+                if(response.isSuccessful()) {
+
+                    if (response.body().size() == 0){
+                        presesenter.errorRecycler("no hay cargues disponibles");
+                    }else {
+                        presesenter.initRecycler(response.body());
+                    }
+
                 }
+
 
             }
 
             @Override
             public void onFailure(Call<List<Conductor>> call, Throwable t) {
-                presesenter.errorRecycler("conexion compruebe que este conectado a la red");
+                presesenter.errorRecycler("error en la conexion compruebe que este conectado a la red");
             }
         });
     }

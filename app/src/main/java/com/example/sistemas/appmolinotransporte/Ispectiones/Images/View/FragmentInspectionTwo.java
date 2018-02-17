@@ -2,14 +2,9 @@ package com.example.sistemas.appmolinotransporte.Ispectiones.Images.View;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -39,7 +34,8 @@ import java.util.Date;
 import java.util.List;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import com.example.sistemas.appmolinotransporte.HomeActivity;
+
+import com.example.sistemas.appmolinotransporte.Home.View.HomeActivity;
 import com.example.sistemas.appmolinotransporte.R;
 import butterknife.BindView;
 import butterknife.BindViews;
@@ -66,41 +62,37 @@ public class FragmentInspectionTwo extends Fragment {
     /*Para la inyecion de vista utilzamos la libreria butternike la cual nos
     * simplifica gran parte del trabajo de momento iniciaremos inflando lo elementos
     * de manera inplicita y ordenadamente desde los Linerlaoyout*/
-
-
-
-
-
-    ImageButton photoBefore;
-    ImageButton photoDuring;
-    ImageButton photoAfter;
-    LinearLayout containerBefore;
-    LinearLayout containerAfter;
-    LinearLayout containerDuring;
-    @BindViews({R.id.imgsaveBefore,R.id.imgsaveduring,R.id.imgsaveAfter})
-    List<ImageView> imgsave;
-    @BindViews({R.id.bodyBefore,R.id.bodyDuring,R.id.bodyAfter})
-    List<RelativeLayout> bodys;
-
+    @BindView(R.id.newPhotoCaptureBefore)
+            ImageButton photoBefore;
+    @BindView(R.id.newPhotoCaptureDuring)
+            ImageButton photoDuring;
+    @BindView(R.id.newPhotoCaptureAfter)
+            ImageButton photoAfter;
+    @BindView(R.id.imgContentAntes)
+            LinearLayout containerBefore;
+    @BindView(R.id.imgContentDuring)
+            LinearLayout containerDuring;
+    @BindView(R.id.imgContentAfeter)
+            LinearLayout containerAfter;
     @BindView(R.id.saveImagesBefore)
-    ImageButton saveImagesBefore;
+            ImageButton saveImagesBefore;
     @BindView(R.id.saveImagesDuring)
-    ImageButton saveImagesDuring;
+            ImageButton saveImagesDuring;
     @BindView(R.id.saveImagesAfter)
-    ImageButton saveImagesAfter;
-
+            ImageButton saveImagesAfter;
+    @BindViews({R.id.imgsaveBefore,R.id.imgsaveduring,R.id.imgsaveAfter})
+            List<ImageView> imgsave;
+    @BindViews({R.id.bodyBefore,R.id.bodyDuring,R.id.bodyAfter})
+            List<RelativeLayout> bodys;
     String URL_IMAGE = "";
     private String photoPathTemp = "";
     File photo = null;
-
     private List<File> imagesBefore = new ArrayList<>();
     private List<File> imageDunring =  new ArrayList<>();
-    private List<File> imagesAfter = new ArrayList<>();
-
+    private List<File> imagesAfter  = new ArrayList<>();
     private  int contadorImageBefore = 0;
-    private  int contadorImaDuring = 0;
-    private  int contadorImageAfter = 0;
-
+    private  int contadorImaDuring   = 0;
+    private  int contadorImageAfter  = 0;
     //private static final int IMAGE_PICK = 5;
     private static final int ACTION_BEFORE = 1;
     private static final int ACTION_DURING = 2;
@@ -108,7 +100,6 @@ public class FragmentInspectionTwo extends Fragment {
     private boolean registreBefore;
     private boolean registreduring;
     private boolean registreAfter;
-
     private String factura;
     public FragmentInspectionTwo() {
         // Required empty public constructor
@@ -118,12 +109,6 @@ public class FragmentInspectionTwo extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inspection_two, container, false);
          ButterKnife.bind(this, view);
-        photoBefore = (ImageButton) view.findViewById(R.id.newPhotoCaptureBefore);
-        photoDuring = (ImageButton) view.findViewById(R.id.newPhotoCaptureDuring);
-        photoAfter = (ImageButton) view.findViewById(R.id.newPhotoCaptureAfter);
-        containerBefore = (LinearLayout) view.findViewById(R.id.imgContentAntes);
-        containerDuring = (LinearLayout) view.findViewById(R.id.imgContentDuring);
-        containerAfter = (LinearLayout) view.findViewById(R.id.imgContentAfeter);
         HomeActivity homeActivity = new HomeActivity();
         factura = homeActivity.getFacturaFinal();
         choseFromCamera(photoBefore);
@@ -206,6 +191,7 @@ public class FragmentInspectionTwo extends Fragment {
         addImage(container,bm2.getBitmap());
     }
     private void addImage(final LinearLayout layoutInflater, final Bitmap image) {
+
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View v = inflater.inflate(R.layout.imagepicture, null, false);
         final FrameLayout frameLayout = (FrameLayout)v.findViewById(R.id.contimgframe);
@@ -222,11 +208,14 @@ public class FragmentInspectionTwo extends Fragment {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 imgselect.setImageBitmap(null);
-                 Uri uri =  null;
-                 imgselect.setImageURI(uri);
-                 File photo =new File(uri.getPath());
-                 deleteFileImage(layoutInflater,photo);
+                //layoutInflater.removeView(imgselect);
+                //layoutInflater.removeView(delete);
+                //imgselect.setImageBitmap(null);
+                 //Uri uri =  null;tr
+                 //imgselect.setImageURI(uri);
+                 //File photo = new File(uri.getPath());
+                 //deleteFileImage(layoutInflater,photo);
+
             }
         });
         layoutInflater.addView(v);
@@ -236,7 +225,6 @@ public class FragmentInspectionTwo extends Fragment {
         if (layoutInflater ==containerBefore)
         {
             imagesBefore.add(contadorImageBefore++,photo);
-
 
 
         }else if(layoutInflater ==containerDuring)
@@ -258,7 +246,6 @@ public class FragmentInspectionTwo extends Fragment {
             imageDunring.remove(photo);
         }else {
             imagesAfter.remove(photo);
-
         }
 
     }
@@ -320,14 +307,6 @@ public void sendData(final ImageButton imageButton)
     });
 }
 
-public boolean registreFull()
-{
-    if (registreAfter && registreBefore && registreduring)
-    {
-        return  true;
-    }
-  return false;
-}
 
 int sizeList ;
     public void uploadServer(final List<File> file , String numberFactura, final String tiempo) {

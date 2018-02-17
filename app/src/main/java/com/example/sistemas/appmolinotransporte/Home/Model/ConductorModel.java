@@ -1,11 +1,15 @@
 
-/**
- * Created by developer on 15/12/17.
- */
-package com.example.sistemas.appmolinotransporte.DespachoConductores.Model;
+
+ package com.example.sistemas.appmolinotransporte.Home.Model;
 
 
-public class Conductor {
+ import com.google.gson.JsonElement;
+ import com.google.gson.JsonSerializationContext;
+ import com.google.gson.JsonSerializer;
+
+ import java.lang.reflect.Type;
+
+ public class ConductorModel implements JsonSerializer<ConductorModel> {
 
     private String name;
     private String apellido;
@@ -13,17 +17,28 @@ public class Conductor {
     private String placa;
     private String consecutivo;
     private String estado;
-    private String hourSatrt;
+    private String fecha;
+    private String hourStart;
 
     /**
      * No args constructor for use in serialization
      *
      */
-    public Conductor() {
+    public ConductorModel() {
     }
 
-
-    public Conductor(String name, String apellido, String cedula, String placa, String consecutivo, String estado, String hourSatrt) {
+    /**
+     *
+     * @param apellido
+     * @param hourStart
+     * @param estado
+     * @param fecha
+     * @param name
+     * @param consecutivo
+     * @param placa
+     * @param cedula
+     */
+    public ConductorModel(String name, String apellido, String cedula, String placa, String consecutivo, String estado, String fecha, String hourStart) {
         super();
         this.name = name;
         this.apellido = apellido;
@@ -31,7 +46,8 @@ public class Conductor {
         this.placa = placa;
         this.consecutivo = consecutivo;
         this.estado = estado;
-        this.hourSatrt = hourSatrt;
+        this.fecha = fecha;
+        this.hourStart = hourStart;
     }
 
     public String getName() {
@@ -82,14 +98,24 @@ public class Conductor {
         this.estado = estado;
     }
 
-    public String getHourSatrt() {
-        return hourSatrt;
+    public String getFecha() {
+        return fecha;
     }
 
-    public void setHourSatrt(String hourSatrt) {
-        this.hourSatrt = hourSatrt;
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
-}
+    public String getHourStart() {
+        return hourStart;
+    }
 
+    public void setHourStart(String hourStart) {
+        this.hourStart = hourStart;
+    }
 
+     @Override
+     public JsonElement serialize(ConductorModel src, Type typeOfSrc, JsonSerializationContext context) {
+         return null;
+     }
+ }
